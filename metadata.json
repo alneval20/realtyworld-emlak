@@ -1,0 +1,5 @@
+{
+  "name": "Realty World Söke Emlak",
+  "description": "Aydın Söke'de profesyonel ve modern emlak hizmetleri. Realty World güvencesiyle hayalinizdeki evi bulun.",
+  "requestFramePermissions": ["geolocation"]
+}
