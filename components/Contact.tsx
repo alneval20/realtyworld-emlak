@@ -5,12 +5,15 @@ import { motion } from 'motion/react';
 import { Mail, Phone, MapPin, Send, Instagram, Facebook, Twitter } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 const Contact = () => {
+  const { language } = useLanguage();
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = (data: any) => {
     console.log(data);
-    alert('Mesajınız başarıyla gönderildi!');
+    alert(language === 'TR' ? 'Mesajınız başarıyla gönderildi!' : 'Your message has been sent successfully!');
   };
 
   return (
@@ -24,8 +27,11 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-red-600 font-bold uppercase tracking-widest text-sm">İletişime Geçin</span>
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2 mb-8">Sorularınız İçin <br />Buradayız</h2>
+            <span className="text-red-600 font-bold uppercase tracking-widest text-sm">{language === 'TR' ? 'İletişime Geçin' : 'Get In Touch'}</span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2 mb-8">
+              {language === 'TR' ? 'Sorularınız İçin' : 'We Are Here'} <br />
+              {language === 'TR' ? 'Buradayız' : 'For Your Questions'}
+            </h2>
             
             <div className="space-y-8 mb-12">
               <div className="flex items-start space-x-4">
@@ -33,7 +39,7 @@ const Contact = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-1">Adresimiz</h4>
+                  <h4 className="font-bold text-slate-900 mb-1">{language === 'TR' ? 'Adresimiz' : 'Our Address'}</h4>
                   <p className="text-slate-600">Yenikent Mah. İsmet İnönü Cad. No:45/A <br />Söke / Aydın</p>
                 </div>
               </div>
@@ -42,7 +48,7 @@ const Contact = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-1">Telefon</h4>
+                  <h4 className="font-bold text-slate-900 mb-1">{language === 'TR' ? 'Telefon' : 'Phone'}</h4>
                   <p className="text-slate-600">+90 (256) 518 00 00</p>
                   <p className="text-slate-600">+90 (505) 123 45 67</p>
                 </div>
@@ -52,7 +58,7 @@ const Contact = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 mb-1">E-Posta</h4>
+                  <h4 className="font-bold text-slate-900 mb-1">{language === 'TR' ? 'E-Posta' : 'E-Mail'}</h4>
                   <p className="text-slate-600">soke@realtyworld.com.tr</p>
                 </div>
               </div>
@@ -82,15 +88,15 @@ const Contact = () => {
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Ad Soyad</label>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">{language === 'TR' ? 'Ad Soyad' : 'Full Name'}</label>
                   <input
                     {...register('name', { required: true })}
                     className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white outline-none transition-all"
-                    placeholder="Adınız Soyadınız"
+                    placeholder={language === 'TR' ? 'Adınız Soyadınız' : 'Your Full Name'}
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-bold text-slate-700 mb-2">Telefon</label>
+                  <label className="block text-sm font-bold text-slate-700 mb-2">{language === 'TR' ? 'Telefon' : 'Phone'}</label>
                   <input
                     {...register('phone', { required: true })}
                     className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white outline-none transition-all"
@@ -99,20 +105,20 @@ const Contact = () => {
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">E-Posta</label>
+                <label className="block text-sm font-bold text-slate-700 mb-2">{language === 'TR' ? 'E-Posta' : 'E-Mail'}</label>
                 <input
                   {...register('email', { required: true })}
                   className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white outline-none transition-all"
-                  placeholder="eposta@adresiniz.com"
+                  placeholder={language === 'TR' ? 'eposta@adresiniz.com' : 'email@address.com'}
                 />
               </div>
               <div>
-                <label className="block text-sm font-bold text-slate-700 mb-2">Mesajınız</label>
+                <label className="block text-sm font-bold text-slate-700 mb-2">{language === 'TR' ? 'Mesajınız' : 'Your Message'}</label>
                 <textarea
                   {...register('message', { required: true })}
                   rows={4}
                   className="w-full px-5 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white outline-none transition-all resize-none"
-                  placeholder="Size nasıl yardımcı olabiliriz?"
+                  placeholder={language === 'TR' ? 'Size nasıl yardımcı olabiliriz?' : 'How can we help you?'}
                 ></textarea>
               </div>
               <button
@@ -120,7 +126,7 @@ const Contact = () => {
                 className="w-full bg-red-600 text-white py-5 rounded-xl font-bold flex items-center justify-center space-x-2 hover:bg-red-700 transition-all shadow-lg shadow-red-600/30"
               >
                 <Send size={20} />
-                <span>Mesaj Gönder</span>
+                <span>{language === 'TR' ? 'Mesaj Gönder' : 'Send Message'}</span>
               </button>
             </form>
           </motion.div>

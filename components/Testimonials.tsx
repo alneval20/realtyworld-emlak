@@ -4,37 +4,63 @@ import Image from 'next/image';
 import { motion } from 'motion/react';
 import { Star, Quote } from 'lucide-react';
 
-const testimonials = [
-  {
-    name: 'Ahmet Yılmaz',
-    role: 'Ev Sahibi',
-    content: 'Söke\'deki evimi satarken Realty World ekibinin profesyonelliği beni çok etkiledi. 2 hafta gibi kısa bir sürede istediğim fiyata satışı gerçekleştirdiler.',
-    rating: 5,
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
-  },
-  {
-    name: 'Ayşe Demir',
-    role: 'Kiracı',
-    content: 'Kiralık ev arayışımda bana çok yardımcı oldular. Güler yüzlü ve dürüst yaklaşımları için tüm ekibe teşekkür ederim.',
-    rating: 5,
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
-  },
-  {
-    name: 'Mehmet Kaya',
-    role: 'Yatırımcı',
-    content: 'Arsa yatırımı konusunda verdikleri danışmanlık sayesinde çok karlı bir alım yaptım. Bölgeye hakimiyetleri gerçekten takdire şayan.',
-    rating: 5,
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200',
-  },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 const Testimonials = () => {
+  const { language } = useLanguage();
+
+  const testimonials = language === 'TR' ? [
+    {
+      name: 'Ahmet Yılmaz',
+      role: 'Ev Sahibi',
+      content: 'Söke\'deki evimi satarken Realty World ekibinin profesyonelliği beni çok etkiledi. 2 hafta gibi kısa bir sürede istediğim fiyata satışı gerçekleştirdiler.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
+    },
+    {
+      name: 'Ayşe Demir',
+      role: 'Kiracı',
+      content: 'Kiralık ev arayışımda bana çok yardımcı oldular. Güler yüzlü ve dürüst yaklaşımları için tüm ekibe teşekkür ederim.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
+    },
+    {
+      name: 'Mehmet Kaya',
+      role: 'Yatırımcı',
+      content: 'Arsa yatırımı konusunda verdikleri danışmanlık sayesinde çok karlı bir alım yaptım. Bölgeye hakimiyetleri gerçekten takdire şayan.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200',
+    },
+  ] : [
+    {
+      name: 'Ahmet Yilmaz',
+      role: 'Homeowner',
+      content: 'I was very impressed by the professionalism of the Realty World team while selling my house in Soke. They realized the sale at the price I wanted in a short time like 2 weeks.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200',
+    },
+    {
+      name: 'Ayse Demir',
+      role: 'Tenant',
+      content: 'They helped me a lot in my search for a rental house. I thank the whole team for their friendly and honest approach.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200',
+    },
+    {
+      name: 'Mehmet Kaya',
+      role: 'Investor',
+      content: 'I made a very profitable purchase thanks to the consultancy they gave on land investment. Their dominance in the region is truly admirable.',
+      rating: 5,
+      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200',
+    },
+  ];
+
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-red-600 font-bold uppercase tracking-widest text-sm">Müşteri Deneyimleri</span>
-          <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2 mb-6">Bizi Müşterilerimizden Dinleyin</h2>
+          <span className="text-red-600 font-bold uppercase tracking-widest text-sm">{language === 'TR' ? 'Müşteri Deneyimleri' : 'Customer Experiences'}</span>
+          <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2 mb-6">{language === 'TR' ? 'Bizi Müşterilerimizden Dinleyin' : 'Hear From Our Customers'}</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

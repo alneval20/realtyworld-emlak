@@ -65,11 +65,15 @@ export const metadata: Metadata = {
   },
 };
 
+import { LanguageProvider } from '@/context/LanguageContext';
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="tr" className={`${inter.variable} ${montserrat.variable}`}>
       <body suppressHydrationWarning className="font-sans bg-white text-slate-900">
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

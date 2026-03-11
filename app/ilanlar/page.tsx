@@ -8,7 +8,11 @@ import Image from 'next/image';
 import { Bed, Bath, Square, MapPin, Heart, Search, Filter } from 'lucide-react';
 import { listings } from '@/lib/data';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 export default function IlanlarPage() {
+  const { language } = useLanguage();
+
   return (
     <main className="min-h-screen bg-slate-50">
       <Navbar />
@@ -21,9 +25,11 @@ export default function IlanlarPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">Tüm İlanlar</h1>
+            <h1 className="text-4xl md:text-5xl font-display font-bold mb-4">{language === 'TR' ? 'Tüm İlanlar' : 'All Listings'}</h1>
             <p className="text-slate-400 text-lg max-w-2xl">
-              Söke ve çevresindeki en güncel satılık ve kiralık gayrimenkul portföyümüzü inceleyin.
+              {language === 'TR' 
+                ? 'Söke ve çevresindeki en güncel satılık ve kiralık gayrimenkul portföyümüzü inceleyin.'
+                : 'Browse our most up-to-date real estate portfolio for sale and rent in Soke and its surroundings.'}
             </p>
           </motion.div>
         </div>
@@ -37,19 +43,19 @@ export default function IlanlarPage() {
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-5 h-5" />
               <input 
                 type="text" 
-                placeholder="İlan ara (mahalle, oda sayısı...)" 
+                placeholder={language === 'TR' ? 'İlan ara (mahalle, oda sayısı...)' : 'Search listing (neighborhood, rooms...)'}
                 className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white outline-none transition-all"
               />
             </div>
             <div className="flex gap-3 w-full md:w-auto">
               <button className="flex-1 md:flex-none flex items-center justify-center space-x-2 px-6 py-3 border border-slate-200 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all">
                 <Filter size={18} />
-                <span>Filtrele</span>
+                <span>{language === 'TR' ? 'Filtrele' : 'Filter'}</span>
               </button>
               <select className="flex-1 md:flex-none px-6 py-3 border border-slate-200 rounded-xl font-semibold text-slate-700 hover:bg-slate-50 transition-all outline-none appearance-none">
-                <option>Sıralama: En Yeni</option>
-                <option>Fiyat: Düşükten Yükseğe</option>
-                <option>Fiyat: Yüksekten Düşüğe</option>
+                <option>{language === 'TR' ? 'Sıralama: En Yeni' : 'Sort: Newest'}</option>
+                <option>{language === 'TR' ? 'Fiyat: Düşükten Yükseğe' : 'Price: Low to High'}</option>
+                <option>{language === 'TR' ? 'Fiyat: Yüksekten Düşüğe' : 'Price: High to Low'}</option>
               </select>
             </div>
           </div>
@@ -81,7 +87,7 @@ export default function IlanlarPage() {
                     <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white shadow-lg ${
                       listing.tag === 'Satılık' ? 'bg-red-600' : 'bg-slate-900'
                     }`}>
-                      {listing.tag}
+                      {language === 'TR' ? listing.tag : (listing.tag === 'Satılık' ? 'For Sale' : 'For Rent')}
                     </span>
                   </div>
                   <button className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-600 hover:text-white transition-all">
@@ -92,23 +98,23 @@ export default function IlanlarPage() {
                 <div className="p-6">
                   <div className="flex items-center text-slate-400 text-sm mb-2">
                     <MapPin size={14} className="mr-1 text-red-600" />
-                    {listing.location}
+                    {language === 'TR' ? listing.location : (listing.locationEn || listing.location)}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">
-                    {listing.title}
+                    {language === 'TR' ? listing.title : (listing.titleEn || listing.title)}
                   </h3>
                   <p className="text-2xl font-display font-extrabold text-red-600 mb-6">
-                    {listing.price}
+                    {language === 'TR' ? listing.price : (listing.priceEn || listing.price)}
                   </p>
 
                   <div className="flex justify-between items-center py-4 border-t border-slate-100">
                     <div className="flex items-center space-x-1.5">
                       <Bed size={18} className="text-slate-400" />
-                      <span className="text-sm font-semibold text-slate-600">{listing.beds} Oda</span>
+                      <span className="text-sm font-semibold text-slate-600">{listing.beds} {language === 'TR' ? 'Oda' : 'Rooms'}</span>
                     </div>
                     <div className="flex items-center space-x-1.5">
                       <Bath size={18} className="text-slate-400" />
-                      <span className="text-sm font-semibold text-slate-600">{listing.baths} Banyo</span>
+                      <span className="text-sm font-semibold text-slate-600">{listing.baths} {language === 'TR' ? 'Banyo' : 'Baths'}</span>
                     </div>
                     <div className="flex items-center space-x-1.5">
                       <Square size={18} className="text-slate-400" />
@@ -117,7 +123,7 @@ export default function IlanlarPage() {
                   </div>
                   
                   <button className="w-full mt-4 py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-red-600 hover:text-white transition-all">
-                    Detayları İncele
+                    {language === 'TR' ? 'Detayları İncele' : 'View Details'}
                   </button>
                 </div>
               </motion.div>

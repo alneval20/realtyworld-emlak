@@ -5,9 +5,12 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, Phone, Home } from 'lucide-react';
 import Link from 'next/link';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,11 +21,11 @@ const Navbar = () => {
   }, []);
 
   const navLinks = [
-    { name: 'Ana Sayfa', href: '/' },
-    { name: 'İlanlar', href: '/ilanlar' },
-    { name: 'Hakkımızda', href: '/hakkimizda' },
-    { name: 'Hizmetler', href: '/#hizmetler' },
-    { name: 'İletişim', href: '/#iletisim' },
+    { name: t('nav.home'), href: '/' },
+    { name: t('nav.listings'), href: '/ilanlar' },
+    { name: t('nav.about'), href: '/hakkimizda' },
+    { name: t('nav.services'), href: '/#hizmetler' },
+    { name: t('nav.contact'), href: '/#iletisim' },
   ];
 
   return (
@@ -57,17 +60,51 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+            
+            {/* Language Switcher */}
+            <div className={`flex items-center space-x-2 text-sm font-bold ${scrolled ? 'text-slate-600' : 'text-white'}`}>
+              <button 
+                onClick={() => setLanguage('TR')}
+                className={`cursor-pointer transition-colors hover:text-red-600 ${language === 'TR' ? 'text-red-600' : ''}`}
+              >
+                TR
+              </button>
+              <span className="opacity-30">|</span>
+              <button 
+                onClick={() => setLanguage('EN')}
+                className={`cursor-pointer transition-colors hover:text-red-600 ${language === 'EN' ? 'text-red-600' : ''}`}
+              >
+                EN
+              </button>
+            </div>
+
             <Link
               href="tel:+902565180000"
               className="bg-red-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold flex items-center space-x-2 hover:bg-red-700 transition-all shadow-lg shadow-red-600/20"
             >
               <Phone size={16} />
-              <span>Hemen Ara</span>
+              <span>{language === 'TR' ? 'Hemen Ara' : 'Call Now'}</span>
             </Link>
           </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          <div className="md:hidden flex items-center space-x-4">
+            {/* Mobile Language Switcher */}
+            <div className={`flex items-center space-x-2 text-sm font-bold ${scrolled ? 'text-slate-600' : 'text-white'}`}>
+              <button 
+                onClick={() => setLanguage('TR')}
+                className={`cursor-pointer transition-colors hover:text-red-600 ${language === 'TR' ? 'text-red-600' : ''}`}
+              >
+                TR
+              </button>
+              <span className="opacity-30">|</span>
+              <button 
+                onClick={() => setLanguage('EN')}
+                className={`cursor-pointer transition-colors hover:text-red-600 ${language === 'EN' ? 'text-red-600' : ''}`}
+              >
+                EN
+              </button>
+            </div>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`${scrolled ? 'text-slate-900' : 'text-white'} p-2`}
@@ -104,7 +141,7 @@ const Navbar = () => {
                   className="w-full bg-red-600 text-white px-5 py-4 rounded-xl text-center font-bold flex items-center justify-center space-x-2"
                 >
                   <Phone size={20} />
-                  <span>Bizi Arayın</span>
+                  <span>{language === 'TR' ? 'Bizi Arayın' : 'Call Us'}</span>
                 </Link>
               </div>
             </div>

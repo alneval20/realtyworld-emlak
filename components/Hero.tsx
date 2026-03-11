@@ -4,7 +4,11 @@ import Image from 'next/image';
 import { motion } from 'motion/react';
 import { Search, MapPin, Home, Building2 } from 'lucide-react';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 const Hero = () => {
+  const { t } = useLanguage();
+
   return (
     <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -28,14 +32,13 @@ const Hero = () => {
           className="mb-8"
         >
           <span className="inline-block px-4 py-1.5 bg-red-600 text-white text-xs font-bold uppercase tracking-widest rounded-full mb-6">
-            Söke&apos;nin En Güvenilir Emlak Ofisi
+            {t('hero.subtitle')}
           </span>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-extrabold text-white leading-tight mb-6">
-            Hayalinizdeki Evi <br />
-            <span className="text-red-500">Birlikte Bulalım</span>
+            {t('hero.title')}
           </h1>
           <p className="text-lg md:text-xl text-white/90 max-w-2xl mx-auto font-light">
-            Aydın Söke ve çevresinde satılık, kiralık en özel portföyler Realty World kalitesiyle sizi bekliyor.
+            {t('hero.subtitle')}
           </p>
         </motion.div>
 
@@ -83,7 +86,7 @@ const Hero = () => {
           </div>
           <button className="w-full md:w-auto bg-red-600 hover:bg-red-700 text-white px-8 py-4 rounded-xl font-bold flex items-center justify-center space-x-2 transition-all shadow-lg shadow-red-600/30">
             <Search size={20} />
-            <span>İlan Ara</span>
+            <span>{t('hero.search.button')}</span>
           </button>
         </motion.div>
 

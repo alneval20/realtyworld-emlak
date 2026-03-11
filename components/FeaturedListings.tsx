@@ -6,20 +6,26 @@ import { Bed, Bath, Square, MapPin, Heart } from 'lucide-react';
 import Link from 'next/link';
 import { listings } from '@/lib/data';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 const FeaturedListings = () => {
+  const { t, language } = useLanguage();
+
   return (
     <section id="ilanlar" className="py-24 bg-slate-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
           <div className="max-w-2xl">
-            <span className="text-red-600 font-bold uppercase tracking-widest text-sm">Portföyümüz</span>
-            <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2">Öne Çıkan İlanlar</h2>
+            <span className="text-red-600 font-bold uppercase tracking-widest text-sm">{language === 'TR' ? 'Portföyümüz' : 'Our Portfolio'}</span>
+            <h2 className="text-3xl md:text-5xl font-display font-bold text-slate-900 mt-2">{t('listings.featured')}</h2>
             <p className="text-slate-600 mt-4 text-lg">
-              Söke ve çevresindeki en güncel, en avantajlı ve en prestijli gayrimenkul seçeneklerini sizin için derledik.
+              {language === 'TR' 
+                ? 'Söke ve çevresindeki en güncel, en avantajlı ve en prestijli gayrimenkul seçeneklerini sizin için derledik.'
+                : 'We have compiled the most up-to-date, most advantageous and most prestigious real estate options in Soke and its surroundings for you.'}
             </p>
           </div>
           <Link href="/ilanlar" className="text-red-600 font-bold border-b-2 border-red-600 pb-1 hover:text-red-700 hover:border-red-700 transition-all">
-            Tüm İlanları Gör
+            {t('listings.viewAll')}
           </Link>
         </div>
 
@@ -45,7 +51,7 @@ const FeaturedListings = () => {
                   <span className={`px-4 py-1.5 rounded-full text-xs font-bold text-white shadow-lg ${
                     listing.tag === 'Satılık' ? 'bg-red-600' : 'bg-slate-900'
                   }`}>
-                    {listing.tag}
+                    {language === 'TR' ? listing.tag : (listing.tag === 'Satılık' ? 'For Sale' : 'For Rent')}
                   </span>
                 </div>
                 <button className="absolute top-4 right-4 p-2 bg-white/20 backdrop-blur-md rounded-full text-white hover:bg-red-600 hover:text-white transition-all">
@@ -56,23 +62,23 @@ const FeaturedListings = () => {
               <div className="p-6">
                 <div className="flex items-center text-slate-400 text-sm mb-2">
                   <MapPin size={14} className="mr-1 text-red-600" />
-                  {listing.location}
+                  {language === 'TR' ? listing.location : (listing.locationEn || listing.location)}
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">
-                  {listing.title}
+                  {language === 'TR' ? listing.title : (listing.titleEn || listing.title)}
                 </h3>
                 <p className="text-2xl font-display font-extrabold text-red-600 mb-6">
-                  {listing.price}
+                  {language === 'TR' ? listing.price : (listing.priceEn || listing.price)}
                 </p>
 
                 <div className="flex justify-between items-center py-4 border-t border-slate-100">
                   <div className="flex items-center space-x-1.5">
                     <Bed size={18} className="text-slate-400" />
-                    <span className="text-sm font-semibold text-slate-600">{listing.beds} Oda</span>
+                    <span className="text-sm font-semibold text-slate-600">{listing.beds} {language === 'TR' ? 'Oda' : 'Rooms'}</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <Bath size={18} className="text-slate-400" />
-                    <span className="text-sm font-semibold text-slate-600">{listing.baths} Banyo</span>
+                    <span className="text-sm font-semibold text-slate-600">{listing.baths} {language === 'TR' ? 'Banyo' : 'Baths'}</span>
                   </div>
                   <div className="flex items-center space-x-1.5">
                     <Square size={18} className="text-slate-400" />
@@ -81,7 +87,7 @@ const FeaturedListings = () => {
                 </div>
                 
                 <button className="w-full mt-4 py-3 bg-slate-50 text-slate-900 font-bold rounded-xl hover:bg-red-600 hover:text-white transition-all">
-                  Detayları İncele
+                  {language === 'TR' ? 'Detayları İncele' : 'View Details'}
                 </button>
               </div>
             </motion.div>

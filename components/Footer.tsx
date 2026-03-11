@@ -4,7 +4,19 @@ import React from 'react';
 import { Home, Mail, Phone, MapPin, ChevronRight, Instagram, Facebook, Twitter, Linkedin } from 'lucide-react';
 import Link from 'next/link';
 
+import { useLanguage } from '@/context/LanguageContext';
+
 const Footer = () => {
+  const { t, language } = useLanguage();
+
+  const quickLinks = language === 'TR' 
+    ? ['Ana Sayfa', 'İlanlar', 'Hakkımızda', 'Hizmetler', 'İletişim']
+    : ['Home', 'Listings', 'About Us', 'Services', 'Contact'];
+
+  const services = language === 'TR'
+    ? ['Gayrimenkul Satış', 'Kiralama Hizmetleri', 'Ücretsiz Ekspertiz', 'Yatırım Danışmanlığı', 'Tapu İşlemleri']
+    : ['Real Estate Sales', 'Rental Services', 'Free Appraisal', 'Investment Consultancy', 'Title Deed Procedures'];
+
   return (
     <footer className="bg-slate-900 text-white pt-24 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -20,7 +32,9 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-slate-400 leading-relaxed">
-              Aydın Söke bölgesinde gayrimenkul sektörünün lideri olarak, müşterilerimize en güvenilir ve profesyonel hizmeti sunuyoruz.
+              {language === 'TR' 
+                ? 'Aydın Söke bölgesinde gayrimenkul sektörünün lideri olarak, müşterilerimize en güvenilir ve profesyonel hizmeti sunuyoruz.'
+                : 'As the leader of the real estate sector in the Aydin Soke region, we offer the most reliable and professional service to our customers.'}
             </p>
             <div className="flex space-x-4">
               <a href="#" className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-600 transition-all">
@@ -40,9 +54,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-bold mb-8">Hızlı Menü</h4>
+            <h4 className="text-lg font-bold mb-8">{language === 'TR' ? 'Hızlı Menü' : 'Quick Menu'}</h4>
             <ul className="space-y-4">
-              {['Ana Sayfa', 'İlanlar', 'Hakkımızda', 'Hizmetler', 'İletişim'].map((item) => (
+              {quickLinks.map((item) => (
                 <li key={item}>
                   <Link href="#" className="text-slate-400 hover:text-red-500 flex items-center group transition-all">
                     <ChevronRight size={14} className="mr-2 text-red-600 opacity-0 group-hover:opacity-100 transition-all" />
@@ -55,9 +69,9 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="text-lg font-bold mb-8">Hizmetlerimiz</h4>
+            <h4 className="text-lg font-bold mb-8">{language === 'TR' ? 'Hizmetlerimiz' : 'Our Services'}</h4>
             <ul className="space-y-4">
-              {['Gayrimenkul Satış', 'Kiralama Hizmetleri', 'Ücretsiz Ekspertiz', 'Yatırım Danışmanlığı', 'Tapu İşlemleri'].map((item) => (
+              {services.map((item) => (
                 <li key={item}>
                   <Link href="#" className="text-slate-400 hover:text-red-500 flex items-center group transition-all">
                     <ChevronRight size={14} className="mr-2 text-red-600 opacity-0 group-hover:opacity-100 transition-all" />
@@ -70,7 +84,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="text-lg font-bold mb-8">İletişim Bilgileri</h4>
+            <h4 className="text-lg font-bold mb-8">{language === 'TR' ? 'İletişim Bilgileri' : 'Contact Information'}</h4>
             <ul className="space-y-6">
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-red-600 flex-shrink-0 mt-1" />
@@ -90,12 +104,12 @@ const Footer = () => {
 
         <div className="pt-12 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-slate-500 text-sm">
-            © 2026 Realty World Söke Emlak. Tüm Hakları Saklıdır.
+            © 2026 Realty World Söke Emlak. {t('footer.rights')}
           </p>
           <div className="flex space-x-8 text-sm text-slate-500">
-            <Link href="#" className="hover:text-white">Gizlilik Politikası</Link>
-            <Link href="#" className="hover:text-white">Kullanım Şartları</Link>
-            <Link href="#" className="hover:text-white">KVKK Aydınlatma Metni</Link>
+            <Link href="#" className="hover:text-white">{language === 'TR' ? 'Gizlilik Politikası' : 'Privacy Policy'}</Link>
+            <Link href="#" className="hover:text-white">{language === 'TR' ? 'Kullanım Şartları' : 'Terms of Use'}</Link>
+            <Link href="#" className="hover:text-white">{language === 'TR' ? 'KVKK Aydınlatma Metni' : 'KVKK Information'}</Link>
           </div>
         </div>
       </div>
